@@ -3,11 +3,18 @@
 class TwitterCardRenderer
 {
     /**
-     * @return string
+     * @return mixed 
      * @param AbstractTwitterCard $card
      */
     public function render($card)
     {
-       return ''; 
+        $properties = $card->getProperties();
+        $meta = ''; 
+        foreach ($properties as $name => $value) 
+        {
+            $meta .= sprintf('<metadata name="%s" content="%s" />', $name, $value);
+        }
+        
+        return $meta;
     }
 }

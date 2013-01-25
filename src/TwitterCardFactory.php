@@ -5,7 +5,7 @@ require_once dirname(__DIR__).'../src/TwitterCardRenderer.php';
 
 class TwitterCardFactory
 {
-    static protected $supported_types = array(
+    protected static $supported_types = array(
             'summary'
     );
     

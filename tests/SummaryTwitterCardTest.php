@@ -30,13 +30,37 @@ class SummaryTwitterCardTest extends PHPUnit_Framework_TestCase
         $img = 'questa non è una url valida';
         $card->setImage($img);
     }
-
-    public function testRenderCard()
+    
+    public function testValidateValidCard()
     {
         $card = $this->card;
-        $output = $card->render();
-        // assert is empty (card is empty)
-        $this->assertTrue(empty($output));
+        // set compulsory fields
+        $card->setUrl('http://www.twitter.com');
+        $card->setTitle('Twitter card');
+        $card->setDescription('Il sito web di twitter');
+    
+        $this->assertTrue($card->validate());
+    }
+    
+    /**
+     * @expectedException GeneralErrorException
+     */
+    public function testGetCardPropertiesOfInvalidCard()
+    {
+        $card = $this->card;
+        $card->getProperties();
+    }
+    
+    public function testGetCardProperties()
+    {
+        $card = $this->card;
+        // set compulsory fields
+        $card->setUrl('http://www.twitter.com');
+        $card->setTitle('Twitter card');
+        $card->setDescription('Il sito web di twitter');
+
+        $output = $card->getProperties();
+        $this->assertEquals(4, count($output));
     }
 
     /**
